@@ -1,0 +1,33 @@
+name: Run TvCord Bot
+
+on:
+  workflow_dispatch:
+  # Optional: uncomment this to start the bot after each push.
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check bot files
+        run: node --check bot.js && node --check TvCord.js
+      - name: Run bot
+        env:
+          TVCORD_BOT_TOKEN: ${{ secrets.TVCORD_BOT_TOKEN }}
+        run: |
+          if [ -z "$TVCORD_BOT_TOKEN" ]; then
+            echo "Missing repository secret TVCORD_BOT_TOKEN."
+            exit 1
+          fi
+          npm start

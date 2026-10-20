@@ -1,0 +1,13 @@
+{
+  "name": "tvcord-test-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Test bot using the TvCord JavaScript API",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
